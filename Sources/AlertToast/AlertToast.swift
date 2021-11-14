@@ -259,7 +259,6 @@ public struct AlertToast: View{
                         .font(style?.subTitleFont ?? Font.subheadline)
                 }
             }
-            .fixedSize(horizontal: true, vertical: false)
             .multilineTextAlignment(.leading)
             .textColor(style?.titleColor ?? nil)
             .padding()
@@ -315,7 +314,6 @@ public struct AlertToast: View{
                     }
                 }
             }
-            .fixedSize(horizontal: true, vertical: false)
             .padding(.horizontal, 24)
             .padding(.vertical, 8)
             .frame(minHeight: 50)
@@ -381,7 +379,6 @@ public struct AlertToast: View{
                 }
             }
         }
-        .fixedSize(horizontal: true, vertical: false)
         .padding()
         .withFrame(type != .regular && type != .loading)
         .alertBackground(style?.backgroundColor ?? nil)
