@@ -379,6 +379,7 @@ public struct AlertToast: View{
                 }
             }
         }
+        .fixedSize(horizontal: false, vertical: true)
         .padding()
         .withFrame(type != .regular && type != .loading)
         .alertBackground(style?.backgroundColor ?? nil)
@@ -555,7 +556,7 @@ public struct AlertToastModifier: ViewModifier{
                     main()
                         .offset(y: offsetY)
                 }
-                            .frame(maxWidth: screen.width, maxHeight: screen.height, alignment: .center)
+                          .frame(minWidth: min(screen.width / 2, 300), maxWidth: screen.width, maxHeight: screen.height, alignment: .center)
                             .edgesIgnoringSafeArea(.all)
                             .animation(Animation.spring(), value: isPresenting))
                 .valueChanged(value: isPresenting, onChange: { (presented) in
