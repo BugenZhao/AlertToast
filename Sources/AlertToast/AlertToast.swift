@@ -263,10 +263,13 @@ public struct AlertToast: View{
             .textColor(style?.titleColor ?? nil)
             .padding()
             .frame(maxWidth: 400, alignment: .leading)
-            .alertBackground(style?.backgroundColor ?? nil)
-            .cornerRadius(10)
+            // .alertBackground(style?.backgroundColor ?? nil)
+            // .cornerRadius(10)
+            .glassEffect(.regular.interactive().tint(style?.backgroundColor), in: .rect(cornerRadius: 24))
             .padding([.horizontal, .bottom])
         }
+        .padding(.bottom)
+        .padding(.bottom)
     }
     
     ///HUD View
@@ -317,13 +320,15 @@ public struct AlertToast: View{
             .padding(.horizontal, 24)
             .padding(.vertical, 8)
             .frame(minHeight: 50)
-            .alertBackground(style?.backgroundColor ?? nil)
-            .clipShape(Capsule())
-            .overlay(Capsule().stroke(Color.gray.opacity(0.2), lineWidth: 1))
-            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 6)
+            // .alertBackground(style?.backgroundColor ?? nil)
+            // .clipShape(Capsule())
+            // .overlay(Capsule().stroke(Color.gray.opacity(0.2), lineWidth: 1))
+            // .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 6)
+            .glassEffect(.regular.interactive().tint(style?.backgroundColor), in: .capsule)
             .compositingGroup()
         }
         .padding(.top)
+        .padding(4)
     }
     
     ///Alert View
@@ -382,8 +387,9 @@ public struct AlertToast: View{
         .fixedSize(horizontal: false, vertical: true)
         .padding()
         .withFrame(type != .regular && type != .loading)
-        .alertBackground(style?.backgroundColor ?? nil)
-        .cornerRadius(10)
+        // .alertBackground(style?.backgroundColor ?? nil)
+        .glassEffect(.regular.interactive().tint(style?.backgroundColor), in: .rect(cornerRadius: 24))
+        // .cornerRadius(10)
     }
     
     ///Body init determine by `displayMode`
@@ -451,8 +457,10 @@ public struct AlertToastModifier: ViewModifier{
                     .onTapGesture {
                         onTap?()
                         if tapToDismiss{
-                            withAnimation(Animation.spring()){
-                                isPresenting = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                withAnimation(Animation.spring()){
+                                    isPresenting = false
+                                }
                             }
                         }
                     }
@@ -479,8 +487,10 @@ public struct AlertToastModifier: ViewModifier{
                     .onTapGesture {
                         onTap?()
                         if tapToDismiss{
-                            withAnimation(Animation.spring()){
-                                isPresenting = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                withAnimation(Animation.spring()){
+                                    isPresenting = false
+                                }
                             }
                         }
                     }
@@ -493,8 +503,10 @@ public struct AlertToastModifier: ViewModifier{
                     .onTapGesture {
                         onTap?()
                         if tapToDismiss{
-                            withAnimation(Animation.spring()){
-                                isPresenting = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                withAnimation(Animation.spring()){
+                                    isPresenting = false
+                                }
                             }
                         }
                     }
