@@ -265,7 +265,7 @@ public struct AlertToast: View{
             .frame(maxWidth: 400, alignment: .leading)
             // .alertBackground(style?.backgroundColor ?? nil)
             // .cornerRadius(10)
-            .glassEffect(.regular.interactive().tint(style?.backgroundColor), in: .rect(cornerRadius: 24))
+            .glassEffect(.regular.tint(style?.backgroundColor), in: .rect(cornerRadius: 24))
             .padding([.horizontal, .bottom])
         }
         .padding(.bottom)
@@ -388,7 +388,7 @@ public struct AlertToast: View{
         .padding()
         .withFrame(type != .regular && type != .loading)
         // .alertBackground(style?.backgroundColor ?? nil)
-        .glassEffect(.regular.interactive().tint(style?.backgroundColor), in: .rect(cornerRadius: 24))
+        .glassEffect(.regular.tint(style?.backgroundColor), in: .rect(cornerRadius: 24))
         // .cornerRadius(10)
     }
     
