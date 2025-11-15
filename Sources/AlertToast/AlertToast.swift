@@ -11,6 +11,10 @@
 import SwiftUI
 import Combine
 
+fileprivate extension View {
+    func apply<V: View>(@ViewBuilder _ block: (Self) -> V) -> V { block(self) }
+}
+
 @available(iOS 13, macOS 11, *)
 fileprivate struct AnimatedCheckmark: View {
     
@@ -263,11 +267,16 @@ public struct AlertToast: View{
             .textColor(style?.titleColor ?? nil)
             .padding()
             .frame(maxWidth: 400, alignment: .leading)
-            // .alertBackground(style?.backgroundColor ?? nil)
-            // .cornerRadius(10)
             .contentShape(.rect(cornerRadius: 24))
-            .glassEffect(.regular.interactive().tint(style?.backgroundColor), in: .rect(cornerRadius: 24))
-            .padding([.horizontal, .bottom])
+            .apply {
+                if #available(iOS 26.0, macOS 26.0, *) {
+                    $0.glassEffect(.regular.interactive().tint(style?.backgroundColor), in: .rect(cornerRadius: 24))
+                } else {
+                    $0.alertBackground(/* style?.backgroundColor ?? */ nil)
+                      .cornerRadius(10)
+                }
+            }
+            .padding(Edge.Set.init(arrayLiteral: [Edge.Set.horizontal, Edge.Set.bottom]))
         }
         .padding(.bottom)
         .padding(.bottom)
@@ -321,12 +330,17 @@ public struct AlertToast: View{
             .padding(.horizontal, 24)
             .padding(.vertical, 8)
             .frame(minHeight: 50)
-            // .alertBackground(style?.backgroundColor ?? nil)
-            // .clipShape(Capsule())
             .contentShape(.capsule) // for onTap area
-            // .overlay(Capsule().stroke(Color.gray.opacity(0.2), lineWidth: 1))
-            // .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 6)
-            .glassEffect(.regular.interactive().tint(style?.backgroundColor), in: .capsule)
+            .apply {
+                if #available(iOS 26.0, macOS 26.0, *) {
+                    $0.glassEffect(.regular.interactive().tint(style?.backgroundColor), in: .capsule)
+                } else {
+                    $0.alertBackground(/* style?.backgroundColor ?? */ nil)
+                      .clipShape(Capsule())
+                      .overlay(Capsule().stroke(Color.gray.opacity(0.2), lineWidth: 1))
+                      .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 6)
+                }
+            }
             .compositingGroup()
         }
         .padding(.top)
@@ -389,10 +403,15 @@ public struct AlertToast: View{
         .fixedSize(horizontal: false, vertical: true)
         .padding()
         .withFrame(type != .regular && type != .loading)
-        // .alertBackground(style?.backgroundColor ?? nil)
         .contentShape(.rect(cornerRadius: 24))
-        .glassEffect(.regular.interactive().tint(style?.backgroundColor), in: .rect(cornerRadius: 24))
-        // .cornerRadius(10)
+        .apply {
+            if #available(iOS 26.0, macOS 26.0, *) {
+                $0.glassEffect(.regular.interactive().tint(style?.backgroundColor), in: .rect(cornerRadius: 24))
+            } else {
+                $0.alertBackground(/* style?.backgroundColor ?? */ nil)
+                  .cornerRadius(10)
+            }
+        }
     }
     
     ///Body init determine by `displayMode`
